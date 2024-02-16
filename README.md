@@ -1,6 +1,6 @@
 # FastAPI-Application
 
-Check if you have python 3.8 > :  for using fastapi – python --version
+Check if you have python 3.8 > :  for using fastapi – python --version<br /> 
 Create folder – fastapi-application
 Install Virtualenv in your folder - pip3 install virtualenv
 Create virtual environment - python3 -m venv .venv
