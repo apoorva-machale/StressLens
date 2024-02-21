@@ -14,8 +14,8 @@ Install uvicorn -  pip install uvicorn<br />
 Run uvicorn - uvicorn main(filename):app(fastapi instance) --reload<br /> 
 Run Requirements file - pip install -r requirements.txt
 
-Processes to check using the port : 8000
+Processes to check using the port : 8000 <br />
 lsof -i :8000
 
-To kill any process:
+To kill any process:<br />
 kill -9 PID
