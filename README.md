@@ -12,3 +12,4 @@ If you want to upgrade pip3:<br />
 Install FastAPI – pip install fastapi<br /> 
 Install uvicorn -  pip install uvicorn<br /> 
 Run uvicorn - uvicorn main(filename):app(fastapi instance) –reload<br /> 
+Run Requirements file - pip install -r requirements.txt
