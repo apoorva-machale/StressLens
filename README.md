@@ -12,3 +12,9 @@
 ·   	Install FastAPI – pip install fastapi
 ·   	Install uvicorn -  pip install uvicorn
 Run uvicorn - uvicorn main(filename):app(fastapi instance) –reload
+
+· If you want to view the swagger Docs: http://127.0.0.1:8000/docs
+
+· How to debug:
+click on breakpoint and then click cmd+shift+T to see debugger (>debug-FastAPI)
+. To run requirements: pip3 install -r requirements.txt
