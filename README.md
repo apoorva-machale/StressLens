@@ -19,3 +19,12 @@ lsof -i :8000
 
 To kill any process:<br />
 kill -9 PID
+
+Install Natural Client Libraries <br />
+    - pip install --upgrade google-cloud-language
+
+Download the google-cloud-sdk and install and initialize the gcloud CLI <br />
+Create your credentials file <br/>
+    - gcloud auth application-default login<br />
+<i>A sign-in screen appears. After you sign in, your credentials are stored in the local credential file used by ADC. </i> <br />
+
