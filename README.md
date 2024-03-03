@@ -26,5 +26,5 @@ Install Natural Client Libraries <br />
 Download the google-cloud-sdk and install and initialize the gcloud CLI <br />
 Create your credentials file <br/>
     - gcloud auth application-default login<br />
-<i>A sign-in screen appears. After you sign in, your credentials are stored in the local credential file used by ADC. </i> <br />
+<i>A sign-in screen appears. After you sign in, your credentials are stored in the local credential file used by ADC.</i> <br />
 
