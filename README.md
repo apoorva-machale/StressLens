@@ -11,7 +11,7 @@ If you want to upgrade pip3:<br />
             2. python3 -m pip –version<br /> 
 Install FastAPI – pip install fastapi<br /> 
 Install uvicorn -  pip install uvicorn<br /> 
-Run uvicorn - uvicorn main(filename):app(fastapi instance) --reload<br /> 
+Run uvicorn - uvicorn blog.main(foldername.filename):app(fastapi instance) --reload<br /> 
 Run Requirements file - pip install -r requirements.txt
 
 Processes to check using the port : 8000 <br />
