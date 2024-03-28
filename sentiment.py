@@ -5,7 +5,7 @@ from google.cloud import language_v1
 client = language_v1.LanguageServiceClient()
 
 # The text to analyze
-text = "Four score and seven years ago our fathers brought forth on this continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal."
+text = "I am feeling unwell and sad today"
 document = language_v1.types.Document(
     content=text, type_=language_v1.types.Document.Type.PLAIN_TEXT
 )
