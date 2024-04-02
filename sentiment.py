@@ -4,21 +4,18 @@ from google.cloud import language_v1
 # Instantiates a client
 client = language_v1.LanguageServiceClient()
 
-# The text to analyze
-text = "I am feeling unwell and sad today"
-document = language_v1.types.Document(
+
+def sentiment_analysis_label(text):
+
+  document = language_v1.types.Document(
     content=text, type_=language_v1.types.Document.Type.PLAIN_TEXT
-)
+  )
 
-# Detects the sentiment of the text
-sentiment = client.analyze_sentiment(
+  # Detects the sentiment of the text
+  sentiments = client.analyze_sentiment(
     request={"document": document}
-).document_sentiment
+  ).document_sentiment
 
-print(f"Text: {text}")
-print(f"Sentiment: {sentiment.score}, {sentiment.magnitude}")
-
-def sentiment_analysis_label(score, magnitude):
   sentiment_label = {
     "positive": {
       "score_range": (0.25, 1.0),
@@ -48,11 +45,13 @@ def sentiment_analysis_label(score, magnitude):
   }
 
   for sentiment, criteria in sentiment_label.items():
-    if (criteria["score_range"][0] <= score <= criteria["score_range"][1]) and (criteria["magnitude_range"][0] <= magnitude <= criteria["magnitude_range"][1]):
+    if (criteria["score_range"][0] <= sentiments.score <= criteria["score_range"][1]) and (criteria["magnitude_range"][0] <= sentiments.magnitude <= criteria["magnitude_range"][1]):
       return criteria["label"]
   
   # If no match is found, return 'Unknown'
   return "Unknown"
 
-anaylsis = sentiment_analysis_label(sentiment.score, sentiment.magnitude)
-print("Anaylsis:", anaylsis)
+# text = "I am sad today because I was not able to focus on my studies today"
+# analysis = sentiment_analysis_label(text)
+# print(analysis)
+
