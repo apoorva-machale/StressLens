@@ -18,8 +18,9 @@ class ShowUser(BaseModel):
     
 
 class ShowBlog(Blog):
-    title: str
-    creator: ShowUser
+    analysis: str
+    sentiment_score: float
+    sentiment_magnitude: float
     class Config():
         from_attributes = True
 

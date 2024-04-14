@@ -9,7 +9,6 @@ class Blog(Base):
     body = Column(String)
     user_id = Column(Integer, ForeignKey('users.id'))
     creation_time = Column(Date)
-    updation_time = Column(Date)
     analysis = Column(String)
     sentiment_score = Column(Float)
     sentiment_magnitude = Column(Float)

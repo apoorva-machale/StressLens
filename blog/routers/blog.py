@@ -23,9 +23,12 @@ def all(db: Session = Depends(database.get_db)):
 def destroy(id: int, db: Session = Depends(get_db)):
     return blog.destroy(id,db)
 
-@router.put('/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, request: schemas.Blog, db: Session = Depends(get_db)):
-   return blog.update(id, db)
+@router.get('/output', response_model=List[schemas.ShowBlog])
+def get_blogs_for_date(date: str, db: Session = Depends(database.get_db)):                                                                 
+    return blog.get_blogs_for_date(date,db)
+# @router.put('/{email}', status_code=status.HTTP_202_ACCEPTED)
+# def update(email: str, request: schemas.Blog, db: Session = Depends(get_db)):
+#    return blog.update(email, db)
 
 @router.get('/{id}',status_code=200, response_model=schemas.ShowBlog)
 def show(id: int, db:Session = Depends(get_db)):
