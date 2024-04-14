@@ -13,6 +13,7 @@ Install FastAPI – pip install fastapi<br />
 Install uvicorn -  pip install uvicorn<br /> 
 Run uvicorn - uvicorn blog.main(foldername.filename):app(fastapi instance) --reload<br /> 
 Run Requirements file - pip install -r requirements.txt
+Run - pip freeze to get revised requirements<br/>
 
 Processes to check using the port : 8000 <br />
 lsof -i :8000
@@ -27,5 +28,5 @@ Download the google-cloud-sdk and install and initialize the gcloud CLI <br />
 Create your credentials file <br/>
     - gcloud auth application-default login<br />
 <i>A sign-in screen appears. After you sign in, your credentials are stored in the local credential file used by ADC.</i> <br />
-Email Validator - pip install pydantic[email] <br />
+
 

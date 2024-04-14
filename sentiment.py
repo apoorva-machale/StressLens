@@ -10,7 +10,7 @@ def sentiment_analysis_label(text):
   document = language_v1.types.Document(
     content=text, type_=language_v1.types.Document.Type.PLAIN_TEXT
   )
-
+  
   # Detects the sentiment of the text
   sentiments = client.analyze_sentiment(
     request={"document": document}

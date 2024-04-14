@@ -30,6 +30,10 @@ def get_blogs_for_date(date: str, db: Session = Depends(database.get_db)):
 # def update(email: str, request: schemas.Blog, db: Session = Depends(get_db)):
 #    return blog.update(email, db)
 
+@router.post('/classify_blog', status_code=status.HTTP_201_CREATED)
+def classify_blog(request: schemas.Blog, db: Session = Depends(get_db)):
+    return blog.classify_blog(request, db)
+
 @router.get('/{id}',status_code=200, response_model=schemas.ShowBlog)
 def show(id: int, db:Session = Depends(get_db)):
     return blog.show(id, db)
