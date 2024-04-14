@@ -6,7 +6,7 @@ client = language_v1.LanguageServiceClient()
 
 
 def sentiment_analysis_label(text):
-
+  result = {}
   document = language_v1.types.Document(
     content=text, type_=language_v1.types.Document.Type.PLAIN_TEXT
   )
@@ -46,7 +46,11 @@ def sentiment_analysis_label(text):
 
   for sentiment, criteria in sentiment_label.items():
     if (criteria["score_range"][0] <= sentiments.score <= criteria["score_range"][1]) and (criteria["magnitude_range"][0] <= sentiments.magnitude <= criteria["magnitude_range"][1]):
-      return criteria["label"]
+      result['sentiment_score'] = sentiments.score
+      result['sentiment_magnitude'] = sentiments.magnitude
+      result['analysis'] = criteria["label"]
+      # print("result", result)
+      return result
   
   # If no match is found, return 'Unknown'
   return "Unknown"

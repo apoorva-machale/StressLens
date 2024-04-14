@@ -9,8 +9,8 @@ def get_all(db: Session):
     return blogs
 
 def analyze_blog(request: schemas.Blog, db: Session):
-    analysis = sentiment_analysis_label(request.body)
-    new_blog = models.Blog(title=request.title, body= request.body,user_id=1, creation_time=datetime.now(), analysis= analysis)
+    output = sentiment_analysis_label(request.body)
+    new_blog = models.Blog(title=request.title, body= request.body,user_id=1, creation_time=datetime.now(), analysis= output['analysis'], sentiment_score = output['sentiment_score'], sentiment_magnitude = output['sentiment_magnitude'])
     db.add(new_blog)
     db.commit()
     db.refresh(new_blog)

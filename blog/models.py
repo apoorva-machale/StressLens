@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, ForeignKey, Date, Float
 from .database import Base
 from sqlalchemy.orm import relationship
 
@@ -11,6 +11,8 @@ class Blog(Base):
     creation_time = Column(Date)
     updation_time = Column(Date)
     analysis = Column(String)
+    sentiment_score = Column(Float)
+    sentiment_magnitude = Column(Float)
     creator = relationship("User", back_populates="blogs")
 
 class User(Base):
