@@ -14,8 +14,8 @@ def create_user(request: schemas.User, db: Session = Depends(database.get_db)):
         db.refresh(new_user)
         return new_user
 
-def show_user(id: int, db: Session = Depends(database.get_db)):
-    user = db.query(models.User).filter(models.User.id == id).first()
+def show_user(email: str, db: Session = Depends(database.get_db)):
+    user = db.query(models.User).filter(models.User.email == email).first()
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with the id {id} is not available")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with the email {email} is not available")
     return user

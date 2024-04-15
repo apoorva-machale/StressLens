@@ -4,6 +4,7 @@ from typing import List, Optional
 class BlogBase(BaseModel):
     title: str
     body: str
+    email: str
     class Config():
         from_attributes = True
 
@@ -21,6 +22,12 @@ class ShowBlog(Blog):
     analysis: str
     sentiment_score: float
     sentiment_magnitude: float
+    class Config():
+        from_attributes = True
+
+class ShowCategory(ShowBlog):
+    category_name: str
+    category_confidence: float
     class Config():
         from_attributes = True
 
