@@ -27,7 +27,14 @@ class ShowBlog(Blog):
     class Config():
         from_attributes = True
 
-class ShowCategory(ShowBlog):
+class Category(BaseModel):
+    category_name: str
+    category_confidence: float
+    class Config():
+        from_attributes = True
+
+class ShowCategory(BaseModel):
+    blog_id: int
     category_name: str
     category_confidence: float
     class Config():

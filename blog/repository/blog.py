@@ -27,18 +27,33 @@ def analyze_blog(request: schemas.Blog, db: Session):
         classifier_output = classify_text(request.body)
         print("classifier_output ----",classifier_output)
         for category in classifier_output:
-            new_blog = models.Classifier(blog_id = sentiment_blog.id, category_name = category['category_name'], category_confidence = category['category_confidence'])
+            new_blog = models.Category(blog_id = sentiment_blog.id, category_name = category['category_name'], category_confidence = category['category_confidence'])
             db.add(new_blog)
             db.commit()
             db.refresh(new_blog)
     return new_blog
 
-def classify_blog(date, db: Session):
-    print("date",date)
-    blog = db.query(models.Blog).filter(models.Blog.creation_time == date)
-    classification = db.query(models.Classifier).filter(models.Classifier.blog_id == blog.id)
-    print("classification",classification)
-    return classification
+async def classify_blog(date, email, db: Session):
+    try:
+        user = db.query(models.User).filter(
+            models.User.email == email
+        ).first()
+        if user:
+            blog = db.query(models.Blog).filter(
+            models.Blog.creation_time == date,
+            models.Blog.user_id == user.id).first()
+            if blog:
+                classification = db.query(models.Category).filter(
+                    models.Category.blog_id == blog.id
+                ).all()
+                return classification
+            else:
+                print("Blog not found for the given date")
+        else:
+            print("User not found for the given email")
+    except Exception as e:
+        print(f"Error classifying blog: {e}")
+        return None
 
 def destroy(id, db: Session):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
@@ -64,6 +79,7 @@ def get_blogs_for_date(date, email, db: Session):
     print("id--------------------------------------------------------------",_id)
     blog = db.query(models.Blog).filter(models.Blog.creation_time == date, models.Blog.user_id == _id)
     print("blog",blog)
+
     return blog
     
 def show(email, db: Session):

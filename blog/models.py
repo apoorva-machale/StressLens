@@ -13,7 +13,7 @@ class Blog(Base):
     sentiment_score = Column(Float)
     sentiment_magnitude = Column(Float)
     creator = relationship("User", back_populates="blogs")
-    classifier = relationship("Classifier", back_populates="blog_content")
+    classifier = relationship("Category", back_populates="blog_content")
 
 class User(Base):
     __tablename__ = 'users'
@@ -23,7 +23,7 @@ class User(Base):
     password = Column(String, nullable=False)
     blogs = relationship('Blog', back_populates='creator')
 
-class Classifier(Base):
+class Category(Base):
     __tablename__ = 'classification'
     id = Column(Integer, primary_key=True, index=True)
     blog_id = Column(Integer, ForeignKey('blogs.id'))
