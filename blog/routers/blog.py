@@ -24,8 +24,8 @@ def destroy(id: int, db: Session = Depends(get_db)):
     return blog.destroy(id,db)
 
 @router.get('/output', response_model=List[schemas.ShowBlog])
-def get_blogs_for_date(date: str, db: Session = Depends(database.get_db)):                                                                 
-    return blog.get_blogs_for_date(date,db)
+def get_blogs_for_date(date: str, email:str, db: Session = Depends(database.get_db)):                                                                 
+    return blog.get_blogs_for_date(date, email, db)
 # @router.put('/{email}', status_code=status.HTTP_202_ACCEPTED)
 # def update(email: str, request: schemas.Blog, db: Session = Depends(get_db)):
 #    return blog.update(email, db)

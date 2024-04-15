@@ -57,9 +57,12 @@ def destroy(id, db: Session):
 #     db.commit()
 #     return 'updated successfully'
 
-def get_blogs_for_date(date, db: Session):
+def get_blogs_for_date(date, email, db: Session):
     print("date",date)
-    blog = db.query(models.Blog).filter(models.Blog.creation_time == date)
+    user = db.query(models.User).filter(models.User.email == email).first()
+    _id = user.id
+    print("id--------------------------------------------------------------",_id)
+    blog = db.query(models.Blog).filter(models.Blog.creation_time == date, models.Blog.user_id == _id)
     print("blog",blog)
     return blog
     
