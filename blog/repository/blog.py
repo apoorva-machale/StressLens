@@ -16,7 +16,7 @@ def analyze_blog(request: schemas.Blog, db: Session):
     user = db.query(models.User).filter(models.User.email == request.email).first()
     _id = user.id
     sentiment_blog = models.Blog(title=request.title, body= request.body, user_id=_id, creation_time=datetime.now(), analysis= sentiment_output['analysis'], sentiment_score = sentiment_output['sentiment_score'], sentiment_magnitude = sentiment_output['sentiment_magnitude'])
-    print("new blog1", sentiment_blog)
+    # print("new blog1", sentiment_blog)
     db.add(sentiment_blog)
     db.commit()
     db.refresh(sentiment_blog)
@@ -73,12 +73,12 @@ def destroy(id, db: Session):
 #     return 'updated successfully'
 
 def get_blogs_for_date(date, email, db: Session):
-    print("date",date)
+    # print("date",date)
     user = db.query(models.User).filter(models.User.email == email).first()
     _id = user.id
-    print("id--------------------------------------------------------------",_id)
+    # print("id--------------------------------------------------------------",_id)
     blog = db.query(models.Blog).filter(models.Blog.creation_time == date, models.Blog.user_id == _id)
-    print("blog",blog)
+    # print("blog",blog)
 
     return blog
     
