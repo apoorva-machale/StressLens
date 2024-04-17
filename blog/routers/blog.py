@@ -12,8 +12,8 @@ router = APIRouter(
 get_db = database.get_db
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def analyze_blog(request: schemas.Blog, db: Session = Depends(database.get_db)):
-    return blog.analyze_blog(request, db)
+async def analyze_blog(request: schemas.BlogBase, db: Session = Depends(database.get_db)):
+    return await blog.analyze_blog(request, db)
 
 @router.get('/', response_model=List[schemas.ShowBlog])
 def all(db: Session = Depends(database.get_db)):                                                                 

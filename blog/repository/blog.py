@@ -10,28 +10,38 @@ def get_all(db: Session):
     blogs = db.query(models.Blog).all()
     return blogs
 
-def analyze_blog(request: schemas.Blog, db: Session):
-    sentiment_output = sentiment_analysis_label(request.body)
-   
-    user = db.query(models.User).filter(models.User.email == request.email).first()
-    _id = user.id
-    sentiment_blog = models.Blog(title=request.title, body= request.body, user_id=_id, creation_time=datetime.now(), analysis= sentiment_output['analysis'], sentiment_score = sentiment_output['sentiment_score'], sentiment_magnitude = sentiment_output['sentiment_magnitude'])
-    # print("new blog1", sentiment_blog)
-    db.add(sentiment_blog)
-    db.commit()
-    db.refresh(sentiment_blog)
-    word_count = len(request.body.split())
-    if word_count < 25:
-        return "Insufficient word count"
-    else:
-        classifier_output = classify_text(request.body)
-        print("classifier_output ----",classifier_output)
-        for category in classifier_output:
-            new_blog = models.Category(blog_id = sentiment_blog.id, category_name = category['category_name'], category_confidence = category['category_confidence'])
-            db.add(new_blog)
+async def analyze_blog(request: schemas.BlogBase, db: Session):
+    try:
+        user = db.query(models.User).filter(
+            models.User.email == request.email
+        ).first()
+        # print("user",user)
+        if user:
+            # print("request.body",request.body)
+            sentiment_output = sentiment_analysis_label(request.body)
+            # print("sentiment_output",sentiment_output)
+            _id = user.id
+            # print("user_id",_id)
+            sentiment_blog = models.Blog(title=request.title, body= request.body, user_id=_id, creation_time=datetime.now(), analysis= sentiment_output['analysis'], sentiment_score = sentiment_output['sentiment_score'], sentiment_magnitude = sentiment_output['sentiment_magnitude'])
+            # print("new blog1", sentiment_blog)
+            db.add(sentiment_blog)
             db.commit()
-            db.refresh(new_blog)
-    return new_blog
+            db.refresh(sentiment_blog)
+            word_count = len(request.body.split())
+            if word_count < 25:
+                return "Insufficient word count to classify the blog"
+            else:
+                classifier_output = classify_text(request.body)
+                # print("classifier_output ----",classifier_output)
+                for category in classifier_output:
+                    category = models.Category(blog_id = sentiment_blog.id, category_name = category['category_name'], category_confidence = category['category_confidence'])
+                    db.add(category)
+                    db.commit()
+                    db.refresh(category)
+                return classifier_output
+    except Exception as e:
+        print(f"Error classifying blog: {e}")
+        return None
 
 async def classify_blog(date, email, db: Session):
     try:
