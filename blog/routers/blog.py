@@ -26,9 +26,10 @@ def destroy(id: int, db: Session = Depends(database.get_db)):
 @router.get('/output', response_model=List[schemas.ShowBlog])
 def get_blogs_for_date(date: str, email:str, db: Session = Depends(database.get_db)):                                                                 
     return blog.get_blogs_for_date(date, email, db)
-# @router.put('/{email}', status_code=status.HTTP_202_ACCEPTED)
-# def update(email: str, request: schemas.Blog, db: Session = Depends(get_db)):
-#    return blog.update(email, db)
+
+@router.get('/output_for_date_range', response_model=List[schemas.ShowBlog])
+def get_blogs_for_date_range(from_date: str, to_date: str, email:str, db: Session = Depends(database.get_db)):                                                                 
+    return blog.get_blogs_for_date_range(from_date, to_date, email, db)
 
 @router.get('/classify_blog', response_model=List[schemas.ShowCategory])
 async def classify_blog(date: str, email:str, db: Session = Depends(database.get_db)):

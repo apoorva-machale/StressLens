@@ -86,14 +86,14 @@ def destroy(id, db: Session):
     db.commit()
     return 'Done'
 
-# def update(email, request: schemas.Blog, db: Session):
-#     blog = db.query(models.Blog).filter(models.Blog.email==email)
-#     if not blog.first():
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Blog with email {id} not found")
-#     output = sentiment_analysis_label(request.body)
-#     blog.update(title=request.title, body= request.body, user_id=1, updation_time=datetime.now(), analysis= output['analysis'], sentiment_score = output['sentiment_score'], sentiment_magnitude = output['sentiment_magnitude'])
-#     db.commit()
-#     return 'updated successfully'
+def get_blogs_for_date_range(from_date, to_date, email, db: Session):
+    # print("date",date)
+    user = db.query(models.User).filter(models.User.email == email).first()
+    _id = user.id
+    # print("id--------------------------------------------------------------",_id)
+    blog = db.query(models.Blog).filter(models.Blog.creation_time.between(from_date, to_date), models.Blog.user_id == _id)
+    # print("blog",blog)
+    return blog
 
 def get_blogs_for_date(date, email, db: Session):
     # print("date",date)
@@ -102,7 +102,6 @@ def get_blogs_for_date(date, email, db: Session):
     # print("id--------------------------------------------------------------",_id)
     blog = db.query(models.Blog).filter(models.Blog.creation_time == date, models.Blog.user_id == _id)
     # print("blog",blog)
-
     return blog
     
 def show(email, db: Session):
