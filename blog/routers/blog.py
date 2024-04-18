@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 from fastapi import APIRouter, HTTPException, Depends, status
 from .. import schemas, database, oauth2
 from sqlalchemy.orm import Session
@@ -15,9 +15,9 @@ get_db = database.get_db
 async def analyze_blog(request: schemas.BlogBase, db: Session = Depends(database.get_db)):
     return await blog.analyze_blog(request, db)
 
-@router.get('/', response_model=List[schemas.ShowBlog])
-def all(db: Session = Depends(database.get_db)):                                                                 
-    return blog.get_all(db)
+@router.get('/', response_model=List[schemas.Blog])
+def all(email:str, db: Session = Depends(database.get_db)):                                                                 
+    return blog.get_all(email, db)
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def destroy(id: int, db: Session = Depends(database.get_db)):

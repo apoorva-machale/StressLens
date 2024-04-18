@@ -6,9 +6,22 @@ from sentiment import sentiment_analysis_label
 from classify_text import classify_text
 from .user import show_user
 
-def get_all(db: Session):
-    blogs = db.query(models.Blog).all()
-    return blogs
+def get_all(email, db: Session):
+    try:
+        user = db.query(models.User).filter(models.User.email == email).first()
+        # print("USER",user)
+        # print("check",user is None)
+        if user is None:
+            return []
+        else:
+            # print("hi")
+            blogs = db.query(models.Blog).filter(models.Blog.user_id == user.id).all()
+            return blogs
+    except Exception as e:
+        # print("hello")
+        print(f"Error classifying blog: {e}")
+        return None
+    
 
 async def analyze_blog(request: schemas.BlogBase, db: Session):
     try:
