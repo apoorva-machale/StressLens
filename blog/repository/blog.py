@@ -78,6 +78,16 @@ async def classify_blog(date, email, db: Session):
         print(f"Error classifying blog: {e}")
         return None
 
+async def classify_blog_id(blog_id, db: Session):
+    try:
+        classification = db.query(models.Category).filter(
+            models.Category.blog_id == blog_id
+        ).all()
+        return classification
+    except Exception as e:
+        print(f"Error classifying blog: {e}")
+        return None
+
 def destroy(id, db: Session):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
     if not blog.first():

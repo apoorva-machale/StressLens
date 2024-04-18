@@ -9,6 +9,7 @@ class BlogBase(BaseModel):
         from_attributes = True
 
 class Blog(BaseModel):
+    id: int
     title: str
     body: str
     class Config():

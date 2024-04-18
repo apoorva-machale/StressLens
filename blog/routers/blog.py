@@ -16,7 +16,7 @@ async def analyze_blog(request: schemas.BlogBase, db: Session = Depends(database
     return await blog.analyze_blog(request, db)
 
 @router.get('/', response_model=List[schemas.Blog])
-def all(email:str, db: Session = Depends(database.get_db)):                                                                 
+def get_all(email:str, db: Session = Depends(database.get_db)):                                                                 
     return blog.get_all(email, db)
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
@@ -34,6 +34,10 @@ def get_blogs_for_date_range(from_date: str, to_date: str, email:str, db: Sessio
 @router.get('/classify_blog', response_model=List[schemas.ShowCategory])
 async def classify_blog(date: str, email:str, db: Session = Depends(database.get_db)):
     return await blog.classify_blog(date, email, db)
+
+@router.get('/classify_blog_id', response_model=List[schemas.ShowCategory])
+async def classify_blog_id(blog_id:int, db: Session = Depends(database.get_db)):
+    return await blog.classify_blog_id(blog_id, db)
 
 @router.get('/{email}',status_code=200, response_model=schemas.ShowBlog)
 def show(email: str, db:Session = Depends(get_db)):
