@@ -7,10 +7,11 @@ from classify_text import classify_text
 from .user import show_user
 
 def get_all(email, db: Session):
+    print(email)
     try:
         user = db.query(models.User).filter(models.User.email == email).first()
-        # print("USER",user)
-        # print("check",user is None)
+        print("USER",user)
+        print("check",user is None)
         if user is None:
             return []
         else:
@@ -23,10 +24,10 @@ def get_all(email, db: Session):
         return None
     
 
-async def analyze_blog(request: schemas.BlogBase, db: Session):
+async def analyze_blog(request: schemas.BlogBase, email, db: Session):
     try:
         user = db.query(models.User).filter(
-            models.User.email == request.email
+            models.User.email == email
         ).first()
         # print("user",user)
         if user:

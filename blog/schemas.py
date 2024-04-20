@@ -4,7 +4,6 @@ from typing import List, Optional
 class BlogBase(BaseModel):
     title: str
     body: str
-    email: str
     class Config():
         from_attributes = True
 
