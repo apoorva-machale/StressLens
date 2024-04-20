@@ -62,17 +62,19 @@ async def classify_blog(date, email, db: Session):
         user = db.query(models.User).filter(
             models.User.email == email
         ).first()
+        print(user.id)
         if user:
             blog = db.query(models.Blog).filter(
             models.Blog.creation_time == date,
             models.Blog.user_id == user.id).first()
-            if blog:
+            if blog is not None:
                 classification = db.query(models.Category).filter(
                     models.Category.blog_id == blog.id
                 ).all()
                 return classification
             else:
                 print("Blog not found for the given date")
+                return []
         else:
             print("User not found for the given email")
     except Exception as e:
@@ -95,7 +97,8 @@ def destroy(id, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Blog with id {id} not found")
     blog.delete(synchronize_session=False)
     db.commit()
-    return 'Done'
+    print('Blog deleted')
+    return 'Blog deleted'
 
 def get_blogs_for_date_range(from_date, to_date, email, db: Session):
     # print("date",date)

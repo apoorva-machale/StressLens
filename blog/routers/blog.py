@@ -28,23 +28,23 @@ async def get_all(db: Session = Depends(database.get_db), test_h:str= Header()):
     return blog.get_all(email, db)
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
-async def destroy(id: int, db: Session = Depends(database.get_db),test_h:str= Header()):
-    print("This is Headerrrr Autho",test_h)
-    email = await verify_token(test_h)
-    return await blog.destroy(id,db)
+def destroy(id: int, db: Session = Depends(database.get_db)):
+    # print("This is Headerrrr Autho",test_h)
+    # email = await verify_token(test_h)
+    return blog.destroy(id, db)
 
 @router.get('/output', response_model=List[schemas.ShowBlog])
 async def get_blogs_for_date(date: str,db: Session = Depends(database.get_db),test_h:str= Header()):                                                                 
     print("This is Headerrrr Autho",test_h)
     email= await verify_token(test_h)
-    return await blog.get_blogs_for_date(date, email, db)
+    return blog.get_blogs_for_date(date, email, db)
 
 @router.get('/output_for_date_range', response_model=List[schemas.ShowBlog])
 async def get_blogs_for_date_range(from_date: str, to_date: str,
                               db: Session = Depends(database.get_db), test_h:str= Header()):                                                                 
     print("This is Headerrrr Autho",test_h)
     email= await verify_token(test_h)
-    return await blog.get_blogs_for_date_range(from_date, to_date, email, db)
+    return blog.get_blogs_for_date_range(from_date, to_date, email, db)
 
 @router.get('/classify_blog', response_model=List[schemas.ShowCategory])
 async def classify_blog(date: str, db: Session = Depends(database.get_db),test_h:str= Header()):
@@ -56,7 +56,7 @@ async def classify_blog(date: str, db: Session = Depends(database.get_db),test_h
 async def classify_blog_id(blog_id:int, db: Session = Depends(database.get_db),test_h:str= Header()):
     print("This is Headerrrr Autho",test_h)
     # email= await verify_token(test_h)
-    return  await blog.classify_blog_id(blog_id, db)
+    return await blog.classify_blog_id(blog_id, db)
 
 @router.get('/{email}',status_code=200, response_model=schemas.ShowBlog)
 async def show(test_h:str= Header(), db:Session = Depends(get_db)):

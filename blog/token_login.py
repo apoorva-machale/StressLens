@@ -31,7 +31,6 @@ async def verify_token(token:str):
     print("here")
     try:
         print("token",type(token))
-
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         print("check payload",payload)
         if payload:
