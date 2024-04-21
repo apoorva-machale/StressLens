@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from .. import database, schemas
 from sqlalchemy.orm import Session
 from ..repository import user
+from . import authentication 
 
 router = APIRouter(
     prefix="/user",
@@ -16,3 +17,7 @@ def create_user(request: schemas.User, db: Session = Depends(get_db)):
 @router.get('/{email}', response_model=schemas.ShowUser)
 def get_user(email:str, db: Session = Depends(get_db)):
     return user.show_user(email, db)
+
+@router.post('/login', response_model=schemas.Token)
+async def login(request:schemas.Login, db: Session = Depends(get_db)):
+    return await authentication.login(request, db)
