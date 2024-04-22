@@ -32,19 +32,19 @@ async def analyze_blog(request: schemas.BlogBase, email, db: Session):
         # print("user",user)
         if user:
             # print("request.body",request.body)
-            sentiment_output = sentiment_analysis_label(request.body)
-            # print("sentiment_output",sentiment_output)
-            _id = user.id
-            # print("user_id",_id)
-            sentiment_blog = models.Blog(title=request.title, body= request.body, user_id=_id, creation_time=datetime.now(), analysis= sentiment_output['analysis'], sentiment_score = sentiment_output['sentiment_score'], sentiment_magnitude = sentiment_output['sentiment_magnitude'])
-            # print("new blog1", sentiment_blog)
-            db.add(sentiment_blog)
-            db.commit()
-            db.refresh(sentiment_blog)
             word_count = len(request.body.split())
             if word_count < 25:
                 return "Insufficient word count to classify the blog"
             else:
+                sentiment_output = sentiment_analysis_label(request.body)
+                # print("sentiment_output",sentiment_output)
+                _id = user.id
+                # print("user_id",_id)
+                sentiment_blog = models.Blog(title=request.title, body= request.body, user_id=_id, creation_time=datetime.now(), analysis= sentiment_output['analysis'], sentiment_score = sentiment_output['sentiment_score'], sentiment_magnitude = sentiment_output['sentiment_magnitude'])
+                # print("new blog1", sentiment_blog)
+                db.add(sentiment_blog)
+                db.commit()
+                db.refresh(sentiment_blog)
                 classifier_output = classify_text(request.body)
                 # print("classifier_output ----",classifier_output)
                 for category in classifier_output:
