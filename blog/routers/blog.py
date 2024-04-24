@@ -2,8 +2,9 @@ from typing import List, Union
 from fastapi import APIRouter, HTTPException, Depends, status,Header,Request
 from .. import schemas, database, oauth2
 from sqlalchemy.orm import Session
-from ..repository import blog
+from ..repository import blog, suggestions
 from ..token_login import verify_token
+
 
 
 router = APIRouter(
@@ -58,8 +59,15 @@ async def classify_blog_id(blog_id:int, db: Session = Depends(database.get_db),T
     # email= await verify_token(test_h)
     return await blog.classify_blog_id(blog_id, db)
 
+@router.get('/suggest')
+def get_content(blog_id:int, Token:str= Header(), db: Session = Depends(database.get_db)):
+    print("check1")
+    # email= await verify_token(Token)
+    return suggestions.get_content(blog_id, db)
+
 @router.get('/{email}',status_code=200, response_model=schemas.ShowBlog)
 async def show(Token:str= Header(), db:Session = Depends(get_db)):
     # print("This is Headerrrr Autho",Token)
     email= await verify_token(Token)
-    return await blog.show(email, db)
+    return blog.show(email, db)
+

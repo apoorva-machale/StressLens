@@ -19,6 +19,8 @@ class ShowUser(BaseModel):
     email: str
     blogs: List[Blog]
     
+class SuggestionBlog(BaseModel):
+    suggestions: str
 
 class ShowBlog(Blog):
     analysis: str

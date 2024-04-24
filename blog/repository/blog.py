@@ -121,7 +121,7 @@ def get_blogs_for_date(date, email, db: Session):
 def show(email, db: Session):
     user = db.query(models.User).filter(models.User.email == email).first()
     _id = user.id
-    blog = db.query(models.Blog).filter(models.Blog._id == user.id)
+    blog = db.query(models.Blog).filter(models.Blog.user_id == user.id)
     if not blog:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Blog with the id {id} is not available")
     return blog
