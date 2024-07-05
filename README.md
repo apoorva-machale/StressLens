@@ -1,5 +1,8 @@
-# FastAPI-Application
+### Purpose of this project - 
+Fueled by a desire to bridge technology and emotional well-being, I created StressLens, a web application built with FastAPI. As someone constantly navigating the digital landscape, I recognized the importance of self-awareness in managing stress. StressLens empowers users to track their moods over time, fostering valuable insights into their emotional patterns.
+This project served as a springboard for my exploration of REST APIs and secure user authentication. By prioritizing user data privacy, StressLens ensures that all mood data remains strictly confidential and accessible only to the respective user. My commitment to user privacy reflects the importance of safeguarding personal information in today's digital age.
 
+### Below guidelines to work on this repository - 
 Check if you have python 3.8 > :  for using fastapi – python --version<br /> 
 Create folder – fastapi-application<br /> 
 Install Virtualenv in your folder - pip3 install virtualenv<br /> 
