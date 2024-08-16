@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from jose import JWTError, jwt, ExpiredSignatureError
-from . import schemas
+from ..schemas import schemas
 from fastapi import  HTTPException,status
 import secrets
 import pytz

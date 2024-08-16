@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from . import models
+from .models import models
 from .database import engine
 from .routers import blog, user, authentication
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,6 +21,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+##check 
 
 
 app.include_router(blog.router)

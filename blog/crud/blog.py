@@ -1,9 +1,11 @@
 from sqlalchemy.orm import Session
-from .. import models, schemas
+
+from ..models import models
+from ..schemas import schemas
 from fastapi import HTTPException, status
 from datetime import datetime
-from sentiment import sentiment_analysis_label
-from classify_text import classify_text
+from blog.dependencies.sentiment import sentiment_analysis_label
+from blog.dependencies.classify_text import classify_text
 from .user import show_user
 
 def get_all(email, db: Session):

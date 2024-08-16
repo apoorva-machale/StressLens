@@ -1,9 +1,13 @@
 from typing import List, Union
 from fastapi import APIRouter, HTTPException, Depends, status,Header,Request
-from .. import schemas, database, oauth2
+
+from ..schemas import schemas
+
+from ..utils import oauth2
+from .. import database
 from sqlalchemy.orm import Session
-from ..repository import blog, suggestions
-from ..token_login import verify_token
+from ..crud import blog, suggestions
+from ..utils.token_login import verify_token
 
 
 

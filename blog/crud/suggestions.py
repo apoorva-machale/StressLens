@@ -1,6 +1,8 @@
 from openai import OpenAI
 from dotenv import load_dotenv
-from .. import models, schemas
+
+from ..models import models
+from ..schemas import schemas
 import os
 load_dotenv() 
 
@@ -30,11 +32,12 @@ def get_content(blog_id, db):
     blog_content = db.query(models.Blog).filter(models.Blog.id == blog_id).first()
     print("check3")
     print(blog_content.body)
-    suggestions = suggest_blog(blog_content.body)
-    return suggestions
+    return blog_content.body
+    # suggestions = suggest_blog(blog_content.body)
+    # return suggestions
 
 
-content = "I feel overhwhelmed with all the task today."
-suggestions = suggest_blog(content)
-print("Suggestions",suggestions)
+# content = "I feel overhwhelmed with all the task today."
+# suggestions = suggest_blog(content)
+# print("Suggestions",suggestions)
 

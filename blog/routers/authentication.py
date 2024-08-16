@@ -1,7 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from .. import database, models, token_login, schemas
+
+from ..schemas import schemas
+
+from ..utils import token_login
+
+from ..models import models
+from .. import database
 from sqlalchemy.orm import Session
-from ..hashing import Hash
+from ..utils.hashing import Hash
 
 router = APIRouter(
     tags=['Authentication']

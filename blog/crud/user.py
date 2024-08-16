@@ -1,7 +1,11 @@
 from sqlalchemy.orm import Session
-from .. import models, schemas, database
+
+from ..schemas import schemas
+
+from ..models import models
+from .. import database
 from fastapi import HTTPException, status, Depends
-from ..hashing import Hash
+from ..utils.hashing import Hash
 
 def create_user(request: schemas.User, db: Session = Depends(database.get_db)):
     email_check = db.query(models.User).filter(models.User.email ==request.email).first()
