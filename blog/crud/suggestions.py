@@ -1,9 +1,9 @@
 from openai import OpenAI
-from dotenv import load_dotenv
-
 from ..models import models
 from ..schemas import schemas
+from dotenv import load_dotenv
 import os
+
 load_dotenv() 
 
 client = OpenAI(
