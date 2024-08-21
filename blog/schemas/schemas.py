@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 
 class BlogBase(BaseModel):
@@ -16,7 +16,7 @@ class Blog(BaseModel):
         
 class ShowUser(BaseModel):
     name: str
-    email: str
+    email: EmailStr
     blogs: List[Blog]
     
 class SuggestionBlog(BaseModel):
@@ -44,8 +44,9 @@ class ShowCategory(BaseModel):
 
 class User(BaseModel):
     name: str
-    email: str
+    email: EmailStr
     password: str
+    confirm_password: str
 
 class Login(BaseModel):
     username: str
