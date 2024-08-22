@@ -4,42 +4,31 @@ from ..schemas import schemas
 from fastapi import  HTTPException,status
 import secrets
 import pytz
+import os
+
 
 # secret_key = secrets.token_bytes(32)
 # print("secret_key", secret_key.hex())
 zones = pytz.all_timezones
+SECRET_KEY = os.environ.get("SECRET_KEY")
+ACCESS_TOKEN_EXPIRE_MINUTES = os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES")
+ALGORITHM = os.environ.get("ALGORITHM")
 
-# print(zones) 
-SECRET_KEY = "0784b83a2c066a29bfc49bbf17d292cf589a4a7c47519be52933c7754e9f936d"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def create_access_token(data: dict):
-    # print(zones) 
     Pacific = pytz.timezone('US/Pacific') #America/Los_Angeles
-    current=datetime.now(Pacific)
-    # print(current)
     to_encode = data.copy()
-    expire = datetime.now(Pacific) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    print("expire", expire)
+    expire = datetime.now(Pacific) + timedelta(minutes=int(ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    print("token",type(encoded_jwt))
     return encoded_jwt
 
 async def verify_token(token:str):
-    print("here")
     try:
-        print("token",type(token))
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        print("check payload",payload)
         if payload:
             email: str = payload.get("sub")
-            print("check email",payload)
             return email
-        if email is None:
-            raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED)
-        token_data = schemas.TokenData(email=email)
     except ExpiredSignatureError as e:
         raise HTTPException(status_code=401, detail=f"Token expired: {e}")
     except Exception as e:

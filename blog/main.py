@@ -4,6 +4,8 @@ from .database import engine
 from .routers import blog, user, authentication
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
 
 #any new model found create on db
 models.Base.metadata.create_all(engine)
@@ -22,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-##check 
+load_dotenv()
 
 
 app.include_router(blog.router)
