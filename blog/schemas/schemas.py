@@ -49,7 +49,7 @@ class User(BaseModel):
     confirm_password: str
 
 class Login(BaseModel):
-    username: str
+    username: EmailStr
     password: str
 
 class Token(BaseModel):
