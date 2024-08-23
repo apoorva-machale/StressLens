@@ -47,6 +47,8 @@ class User(BaseModel):
     email: EmailStr
     password: str
     confirm_password: str
+    role_id: int
+    subscription_id: int
 
 class Login(BaseModel):
     username: EmailStr
@@ -57,8 +59,8 @@ class Token(BaseModel):
     token_type: str
 
 
-class TokenData(BaseModel):
-    email: Optional[str] = None
+class UserEmail(BaseModel):
+    email: EmailStr
 
 
 

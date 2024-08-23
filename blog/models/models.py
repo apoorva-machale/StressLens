@@ -15,13 +15,35 @@ class Blog(Base):
     creator = relationship("User", back_populates="blogs")
     classifier = relationship("Category", back_populates="blog_content")
 
+class Role(Base):
+    __tablename__ = 'roles'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), unique= True)
+    role_names = relationship("User", back_populates="user_roles")
+    
+class Subscription(Base):
+    __tablename__ = 'subscriptions'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), unique= True)
+    subscription_names = relationship("User", back_populates="premium_subscription")
+    
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255))
     email = Column(String(255), unique= True, nullable=False)
     password = Column(String(255), nullable=False)
+    role_id = Column(Integer, ForeignKey('roles.id'))
+    subscription_id = Column(Integer, ForeignKey('subscriptions.id'))
     blogs = relationship('Blog', back_populates='creator')
+    user_roles = relationship(
+        'Role',
+        primaryjoin="and_(User.role_id==Role.id, Role.name=='Therapist')",
+    )
+    premium_subscription = relationship(
+        'Subscription',
+        primaryjoin="and_(User.subscription_id==Subscription.id, Subscription.name=='Premium')",
+    )
 
 class Category(Base):
     __tablename__ = 'classification'
