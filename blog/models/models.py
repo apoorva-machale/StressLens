@@ -19,7 +19,7 @@ class Role(Base):
     __tablename__ = 'roles'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), unique= True)
-    role_names = relationship("User", back_populates="user_roles")
+    role_names = relationship("User", back_populates="therapist_users")
     
 class Subscription(Base):
     __tablename__ = 'subscriptions'
@@ -36,7 +36,7 @@ class User(Base):
     role_id = Column(Integer, ForeignKey('roles.id'))
     subscription_id = Column(Integer, ForeignKey('subscriptions.id'))
     blogs = relationship('Blog', back_populates='creator')
-    user_roles = relationship(
+    therapist_users = relationship(
         'Role',
         primaryjoin="and_(User.role_id==Role.id, Role.name=='Therapist')",
     )

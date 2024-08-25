@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from blog.crud.role_permissions import is_therapist
+from blog.crud.permissions_subscriptions import is_therapist
 from ..schemas import schemas
 from ..models import models
 from .. import database

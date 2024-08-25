@@ -22,7 +22,7 @@ class ShowUser(BaseModel):
 class SuggestionBlog(BaseModel):
     suggestions: str
 
-class ShowBlog(Blog):
+class ShowBlogAnalysis(Blog):
     analysis: str
     sentiment_score: float
     sentiment_magnitude: float
