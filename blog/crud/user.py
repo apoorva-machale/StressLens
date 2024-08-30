@@ -4,7 +4,7 @@ from ..schemas import schemas
 
 from ..models import models
 from .. import database
-from fastapi import HTTPException, status, Depends
+from fastapi import HTTPException, status, Depends, Request
 from ..utils.hashing import Hash
 import re
 
@@ -23,7 +23,8 @@ def create_user(request: schemas.User, db: Session = Depends(database.get_db)):
         db.refresh(new_user)
         return new_user
 
-def show_user(email: str, db: Session = Depends(database.get_db)):
+def show_user(request: Request, db: Session = Depends(database.get_db)):
+    email = request.query_params.get("email")
     user = db.query(models.User).filter(models.User.email == email).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with the email {email} is not available")
