@@ -13,6 +13,7 @@ EXPOSE 3000
 # Define environment variable that a running container will use
 ENV NAME StressLens
 
+COPY ./keys /keys
 # Setup an app user so the container doesn't run as the root user
 RUN useradd app
 USER app

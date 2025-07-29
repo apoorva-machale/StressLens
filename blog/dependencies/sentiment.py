@@ -1,6 +1,10 @@
 # Imports the Google Cloud client library
 from google.cloud import language_v1
 
+import os
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+
 # Instantiates a client
 client = language_v1.LanguageServiceClient()
 

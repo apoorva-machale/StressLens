@@ -1,4 +1,6 @@
 from google.cloud import language_v1
+import os
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 # text_content = "In Fullerton right now, it's a cool 58 degrees Fahrenheit and cloudy. There's a chance of showers throughout the day, with a high expected to only reach 58 degrees and a low of 48 degrees Fahrenheit.  The wind is blowing moderately from the south at 9 mph."
 def classify_text(text_content):
