@@ -7,7 +7,7 @@ from ..crud import user
 from . import authentication 
 
 router = APIRouter(
-    prefix="/user",
+    prefix="/users",
     tags=['Users']
 )
 get_db = database.get_db

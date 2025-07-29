@@ -3,9 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 
-
 MYSQL_DATABASE_URL = os.getenv("MYSQL_DATABASE_URL")
-
 
 engine = create_engine(MYSQL_DATABASE_URL,echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

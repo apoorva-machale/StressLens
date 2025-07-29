@@ -10,7 +10,7 @@ from ..utils.token_login import verify_token
 
 
 router = APIRouter(
-    prefix="/blog",
+    prefix="/blogs",
     tags=['Blogs'],
     
     
@@ -49,19 +49,19 @@ async def get_blogs_for_date_range(from_date: str, to_date: str,
     email= await verify_token(Token)
     return blog.get_blogs_for_date_range(from_date, to_date, email, db)
 
-@router.get('/classify_blog', response_model=List[schemas.ShowCategory])
+@router.get('/classify', response_model=List[schemas.ShowCategory])
 async def classify_blog(date: str, db: Session = Depends(database.get_db),Token:str= Header()):
     # print("This is Headerrrr Autho",Token)
     email= await verify_token(Token)
     return await blog.classify_blog(date, email, db)
 
-@router.get('/classify_blog_id', response_model=List[schemas.ShowCategory])
+@router.get('/classify_id', response_model=List[schemas.ShowCategory])
 async def classify_blog_id(blog_id:int, db: Session = Depends(database.get_db),Token:str= Header()):
     # print("This is Headerrrr Autho",Token)
     # email= await verify_token(test_h)
     return await blog.classify_blog_id(blog_id, db)
 
-@router.get('/suggest')
+@router.get('/suggestions')
 def get_content(blog_id:int, Token:str= Header(), db: Session = Depends(database.get_db)):
     print("check1")
     # email= await verify_token(Token)
